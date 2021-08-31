@@ -15,11 +15,13 @@ app = http.createServer((req, res) => { // createServer 함수를 사용해서 �
         // 서버가 요청을 성공적으로 받았고 HTML 형태의 콘텐츠로 응답을 한다는 것을 의미한다
         "Content-Type": "text/html"
     })
-
-    let responseMessage = "<h1>Hello, World!</h1>"
-    res.write(responseMessage) // html 형식의 출력문으로 응답을 시작
-    res.end(); // 응답 종료, 반드시 end를 사용해서 응답을 종료해준다
-    console.log(`Sent a response: ${responseMessage}`)
+    if(routeResponseMap[req.url]) {
+        res.end(routeResponseMap[req.url])
+    } else {
+        setTimeout(() => {
+            res.end("<h1>Welcome!</h1>")
+        }, 2000)
+    }
 })
 app.listen(port);
 console.log(`The server has started and is listening on port number: ${port}`)
