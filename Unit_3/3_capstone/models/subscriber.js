@@ -5,4 +5,4 @@ subscriberSchema = mongoose.Schema({
     zipCode: Number
 })
 
-module.exports = mongoose.model("Subscriber", subscriberSchema); // 모델을 적용하는 명령어
+module.exports = mongoose.model('Subscriber', subscriberSchema)
