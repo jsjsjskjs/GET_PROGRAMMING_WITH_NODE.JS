@@ -26,11 +26,11 @@ const mongoose = require("mongoose"),
     //하지만 하나의 강좌에 이미 다른 구독자들이 연결돼 있는 경우 이 강좌에 다른 구독자가 신청하는 것을 막을 수는 없다. 
   });
 
-  subscriberSchema.method.getInfo = function() {
+  subscriberSchema.methods.getInfo = function() {
     return `Name: ${this.name} Email: ${this.email} Zip Code: ${this.zipCode}`
   }
 
-  subscriberSchema.method.findLocalSubscribers = function() {
+  subscriberSchema.methods.findLocalSubscribers = function() {
     return this.model("Subscriber")
     .find({ zipCode: this.zipCode })
     .exec()//exec()는 프로미스를 돌려주기 위한 쿼리 실행
