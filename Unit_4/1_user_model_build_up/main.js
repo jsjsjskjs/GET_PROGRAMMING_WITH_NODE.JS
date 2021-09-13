@@ -5,6 +5,7 @@ const express = require("express"),
   errorController = require("./controllers/errorController"),
   homeController = require("./controllers/homeController"),
   subscribersController = require("./controllers/subscribersController"),
+  usersController = require("./controllers/usersController"),
   layouts = require("express-ejs-layouts"),
   mongoose = require("mongoose"),
   Subscriber = require("./models/subscriber");
@@ -44,6 +45,8 @@ app.get("/subscribers", subscribersController.getAllSubscribers, (req, res, next
 
 app.get("/", homeController.index);
 app.get("/courses", homeController.showCourses);
+app.get("/users", usersController.index, usersController.indexView)
+//userController.index가 쿼리를 완료하고 응답 객체에 데이터를 보내면 userController.indexView가 뷰를 렌더링하기 위해 호출된다.
 
 app.get("/contact", subscribersController.getSubscriptionPage);
 app.post("/subscribe", subscribersController.saveSubscriber);
