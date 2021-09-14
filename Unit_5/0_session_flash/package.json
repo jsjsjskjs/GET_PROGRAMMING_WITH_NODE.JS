@@ -1,0 +1,27 @@
+{
+  "name": "0_session_flash",
+  "version": "1.0.0",
+  "description": "- 페이지 간의 메세지 전달을 통해 CRUD 사이의 흐름을 정리해 서버 동작이 성공했는지, 에러가 발생했는지 찾아낸다 - 지금 버젼은 에러 메세지가 콘솔로 출력되며 애플리케이션 사용자들은 에러 발생 시 어떻게 행동을 해야 할지 알 수 없다 - connect-flash 패키지를 통한 세션과 쿠기를 사용해 메세지를 뷰에 전달 - 끝나면 사용자가 동작의 성공 또는 실패를 알 수 있는 애플리케이션을 만들 수 있을 것",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --inspect ./main.js"
+  },
+  "author": "sik",
+  "license": "ISC",
+  "dependencies": {
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.5",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.17.2",
+    "http-status-codes": "^2.1.4",
+    "method-override": "^3.0.0",
+    "mongodb": "^4.1.1",
+    "mongoose": "^5.13.9"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
