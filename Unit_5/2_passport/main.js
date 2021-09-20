@@ -10,7 +10,7 @@ const express = require("express"),
   cookieParser = require("cookie-parser"),
   connectFlash = require("connect-flash"),
   expressValidator = require("express-validator"),
-  passport = require("passport"),
+  passport = require('passport'),
   errorController = require("./controllers/errorController"),
   homeController = require("./controllers/homeController"),
   subscribersController = require("./controllers/subscribersController"),
@@ -64,13 +64,19 @@ router.use(
 
 router.use(passport.initialize()) //passport 초기화
 router.use(passport.session()) //passport가 Express.js 내 세션을 사용하도록 설정
-passport.use(User.creatStrategy()) //사용자의 로그인 스트래티지 설정
+passport.use(User.createStrategy()) //사용자의 로그인 스트래티지 설정
 passport.serializeUser(User.serializeUser()) //passport가 사용자 데이터의 직렬화 및 역직렬화 작업을 하도록 설정
 passport.deserializeUser(User.deserializeUser())
 router.use(connectFlash());
 
 router.use((req, res, next) => {
   res.locals.flashMessages = req.flash();
+  //사용자 정의 미들웨어를 추가해 모든 새로운 요청에서 응답으로의 전달 데이터에 아래의 변수들을 추가한다
+  //isAuthenticated는 Passport.js 에서 제공되며 이를 통해 유입된 요청상에서 존재하는 사용자가 요청 쿠키에 저장돼 있는지 확인할 수 있다
+  //이 때 loggedIn 값은 true나 false가 된다
+  //만일 사용자가 요청 단계라면 이 값을 추출해서 할당할 수 있다!
+  res.locals.loggedIn = req.isAuthenticated()
+  res.locals.currentUser = req.user
   next();
 });
 router.use(expressValidator());
@@ -83,7 +89,8 @@ router.get("/users", usersController.index, usersController.indexView);
 router.get("/users/new", usersController.new);
 router.post("/users/create", usersController.validate, usersController.create, usersController.redirectView);router.get("/users/login", usersController.login);
 router.get("/users/login", usersController.login);
-router.post("/users/login", usersController.authenticate, usersController.redirectView);
+router.post("/users/login", usersController.authenticate, usersController.redirectView); //usersController는 더 이상 쓰이지 않는다.
+router.get("/users/logout", usersController.logout, usersController.redirectView);
 router.get("/users/:id/edit", usersController.edit);
 router.put("/users/:id/update", usersController.update, usersController.redirectView);
 router.delete("/users/:id/delete", usersController.delete, usersController.redirectView);

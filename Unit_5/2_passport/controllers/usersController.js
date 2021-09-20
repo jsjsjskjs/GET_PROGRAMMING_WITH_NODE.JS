@@ -1,6 +1,7 @@
 "use strict";
 
 const User = require("../models/user"),
+passport = require('passport'),
   getUserParams = body => {
     return {
       name: {
@@ -124,8 +125,8 @@ module.exports = {
   login: (req, res) => {
     res.render("users/login");
   },
-  authenticate: passport.authenticate("local", {
-    failureRedirect: "/users/login",
+  authenticate: passport.authenticate("local", { // local strategy로 사용자를 인증하기 위해 passport 호출
+    failureRedirect: "/users/login", // 성공과 실패의 플래시 메세지를 설정하고 사용자의 인증 상태에 따라 리디렉션할 경로를 지정한다
     failureFlash: "Failed to login.",
     successRedirect: "/",
     successFlash: "Logged in!"
@@ -160,5 +161,12 @@ module.exports = {
         next();
       }
     });
+  },
+  logout: (req, res, next) => {
+    req.logout(); // Passport.js가 제공하는 logout 메소드를 사용. 이를 통해 사용자 세션을 지워버린다
+    // 사용자 정의 미들웨어를 통한 다음 전달을 통해 isAuthenticated는 false를 돌려주고 현재 로그인된 사용자는 더 이상 존재하지 않게 된다
+    req.flash("success", "You have been logged out!");
+    res.locals.redirect = "/";
+    next();
   }
 };

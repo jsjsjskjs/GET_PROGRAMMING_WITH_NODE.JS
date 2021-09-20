@@ -95,9 +95,6 @@ a {
   margin: 5px 0 0 0;
 }
 
-/* .hidden-text {
-  -webkit-text-security: disc;
-} */
 .flash {
   background: rgba(103, 120, 209, 0.7);
   color: #fff;
@@ -106,12 +103,38 @@ a {
   padding: 10px 30px;
   position: absolute;
   top: 110px;
+  z-index: 2;
 }
 
 .error {
   background: rgba(209, 46, 42, 0.7);
 }
 
-button[type=submit] {
+button[type="submit"] {
   margin-top: 20px;
+}
+
+.login-status {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+}
+
+.log-out {
+  position: absolute;
+  right: 10px;
+}
+
+.login-status .bubble {
+  padding: 10px;
+  background: #c1ffc1;
+  border-radius: 20px;
+}
+
+@media (max-width: 760px) {
+  .login-status .bubble {
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 2vw;
+  }
 }
